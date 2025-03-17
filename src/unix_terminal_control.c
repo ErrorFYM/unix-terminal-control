@@ -34,6 +34,7 @@ void moveTerminalCursorUpBeginning(int lines) {
 // Input
 bool kbhit() {
     struct termios oldt, newt;
+    bool isPressed = 0;
     tcgetattr(STDIN_FILENO, &oldt);
     newt = oldt;
     newt.c_lflag &= ~(ICANON | ECHO); // Turn off CANON mode and ECHO mode
@@ -43,14 +44,16 @@ bool kbhit() {
     fcntl(STDIN_FILENO, F_SETFL, old_flags | O_NONBLOCK); // Set nonblock mode
 
     int ch = getchar(); // Try to get a char
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Restore old settings
-    fcntl(STDIN_FILENO, F_SETFL, old_flags); // Restore old flags
 
     if(ch != EOF) {
         ungetc(ch, stdin); // Return a character back to the stream
-        return true; // The key has been pressed
+        isPressed = 1; // The key has been pressed
     }
-    return false; // The key has not been pressed
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Restore old settings
+    fcntl(STDIN_FILENO, F_SETFL, old_flags); // Restore old flags
+
+    return isPressed; // returns true if the button was pressed
 }
 
 int getch(void) {
