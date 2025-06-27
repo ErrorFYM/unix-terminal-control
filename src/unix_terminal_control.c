@@ -30,6 +30,9 @@ void moveTerminalCursorDownBeginning(int lines) {
 void moveTerminalCursorUpBeginning(int lines) {
 	printf("\033[%iF", lines);
 }
+void moveTerminalCursorToBeginning() {
+    printf("\r");
+}
 
 // Input
 bool kbhit() {

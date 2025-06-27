@@ -21,6 +21,8 @@ void moveTerminalCursorHome(); // moves T cursor to 0,0
 void moveTerminalCursorDownBeginning(int lines); // moves T cursor to the beginning of the line, which is $lines down
 void moveTerminalCursorUpBeginning(int lines); // same as moveTerminalCursorDownBeginning(), but moves upwards
 
+void moveTerminalCursorToBeginning(); // moves cursor to the beginning of the current line (basically carriage return)
+
 // Input
 bool kbhit();
 int getch(void);
