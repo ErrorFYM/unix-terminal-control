@@ -34,6 +34,22 @@ void moveTerminalCursorToBeginning() {
     printf("\r");
 }
 
+void eraseInLine() {
+    printf("\033[K");
+}
+
+void eraseTerminalCursorToEndOfLine() {
+    printf("\033[0K");
+}
+
+void eraseTerminalCursorToStartOfLine() {
+    printf("\033[1K");
+}
+
+void eraseEntireLine() {
+    printf("\033[2K");
+}
+
 // Input
 bool kbhit() {
     struct termios oldt, newt;

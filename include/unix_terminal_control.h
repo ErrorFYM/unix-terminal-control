@@ -23,6 +23,18 @@ void moveTerminalCursorUpBeginning(int lines); // same as moveTerminalCursorDown
 
 void moveTerminalCursorToBeginning(); // moves cursor to the beginning of the current line (basically carriage return)
 
+
+void eraseInLine();
+
+// erase everything from terminal cursor to the end of line
+void eraseTerminalCursorToEndOfLine();
+
+// erase everything from the start of line to terminal cursor
+void eraseTerminalCursorToStartOfLine();
+
+// erase the entire line
+void eraseEntireLine();
+
 // Input
 bool kbhit();
 int getch(void);
