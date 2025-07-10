@@ -87,7 +87,6 @@ int getch(void) {
     return ch;
 }
 
-// if keyboard hit then change pointer's value
 bool ifkbhitchval(char *pChar) {
     struct termios oldt, newt;
     bool isPressed = 0;

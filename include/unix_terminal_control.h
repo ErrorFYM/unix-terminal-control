@@ -38,6 +38,8 @@ void eraseEntireLine();
 // Input
 bool kbhit();
 int getch(void);
+// if keyboard hit then change pointer's value
+bool ifkbhitchval(char *pChar);
 
 #ifdef __cplusplus
 }
