@@ -86,3 +86,28 @@ int getch(void) {
     tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
     return ch;
 }
+
+// if keyboard hit then change pointer's value
+bool ifkbhitchval(char *pChar) {
+    struct termios oldt, newt;
+    bool isPressed = 0;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO); // Turn off CANON mode and ECHO mode
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    int old_flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, old_flags | O_NONBLOCK); // Set nonblock mode
+
+    int ch = getchar(); // Try to get a char
+
+    if(ch != EOF) {
+        isPressed = 1; // The key has been pressed
+        *pChar = ch; // change the value of the pointer to the character got
+    }
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Restore old settings
+    fcntl(STDIN_FILENO, F_SETFL, old_flags); // Restore old flags
+
+    return isPressed; // returns true if the button was pressed
+}
